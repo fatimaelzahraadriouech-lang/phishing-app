@@ -24,7 +24,7 @@ print("ÉTAPE 3 : Chargement du dataset")
 print("=" * 50)
 
 # ⚠️ Mets le bon nom de ton fichier CSV ici
-df = pd.read_csv("phishing.csv")
+df = pd.read_csv("data/donnees_collectees.csv")
 
 
 print(f"✅ Dataset chargé : {df.shape[0]} lignes, {df.shape[1]} colonnes")
